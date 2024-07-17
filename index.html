@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+            min-height: 100vh;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-grow: 1;
+        }
+        input, button {
+            margin: 5px;
+            padding: 10px;
+        }
+        #qr-code {
+            margin-top: 20px;
+        }
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            background: #f1f1f1;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>QR Code Generator</h1>
+        <input type="text" id="endpoint" placeholder="Endpoint" />
+        <button onclick="generateQRCode()">Generate QR Code</button>
+        <div id="qr-code"></div>
+    </div>
+
+    <footer>
+        <p>This tool was developed by Ravi Kumawat for Internal Use at Davos Designs. &copy; 2024</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <script>
+        const baseUrl = "https://davosdesigns.com/";
+
+        function generateQRCode() {
+            const endpoint = document.getElementById('endpoint').value;
+            const url = `${baseUrl}${endpoint}`;
+            
+            if (endpoint) {
+                QRCode.toDataURL(url, { margin: 4, width: 256 }, (err, dataUrl) => {
+                    if (err) return console.error(err);
+
+                    // Display the QR code
+                    const qrCodeDiv = document.getElementById('qr-code');
+                    qrCodeDiv.innerHTML = `<img src="${dataUrl}" alt="QR Code" id="qr-image"/>`;
+
+                    // Automatically download the QR code
+                    const link = document.createElement('a');
+                    link.href = dataUrl;
+                    link.download = `${endpoint}.png`;
+                    link.click();
+                });
+            } else {
+                alert('Please enter an Endpoint');
+            }
+        }
+    </script>
+</body>
+</html>
