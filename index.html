@@ -10,15 +10,25 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
+            /* Spadding: 20px; */
             margin: 0;
             min-height: 100vh;
+        }
+        header {
+            text-align: center;
+            width: 100vw;
+            /* position: absolute; */
+            background: #f1f1f1;
+            margin-bottom: 30px;
+            font-size: 40px;
+            padding: 10px;
         }
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
             flex-grow: 1;
+            align-self: center;
         }
         input, button {
             margin: 5px;
@@ -39,8 +49,9 @@
     </style>
 </head>
 <body>
+    <header>QR Code Generator</header>
+
     <div class="container">
-        <h1>QR Code Generator</h1>
         <input type="text" id="endpoint" placeholder="Endpoint" />
         <button onclick="generateQRCode()">Generate QR Code</button>
         <div id="qr-code"></div>
